@@ -4,15 +4,19 @@
   "description": "node server with a mongodb backend",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongodb": "^3.3.4"
   },
   "devDependencies": {
     "husky": "^3.0.9",
+    "nodemon": "^1.19.4",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1"
   }
