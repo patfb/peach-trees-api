@@ -7,6 +7,22 @@ let connectToPeachTrees = async client => {
   return client.db(DB_NAME).collection("names");
 };
 
+let deleteUser = async user => {
+  const client = createClient();
+  try {
+    await client.connect();
+    console.log("connected");
+    const col = client.db(DB_NAME).collection("names");
+    await col.deleteOne({
+      first: user.first,
+      last: user.last
+    });
+  } catch (err) {
+  } finally {
+    client.close();
+  }
+};
+
 let updateUser = async user => {
   const client = createClient();
   try {
@@ -73,4 +89,10 @@ let readFilteredData = async firstName => {
   }
 };
 
-module.exports = { readAllData, readFilteredData, createUser, updateUser };
+module.exports = {
+  readAllData,
+  readFilteredData,
+  createUser,
+  updateUser,
+  deleteUser
+};
