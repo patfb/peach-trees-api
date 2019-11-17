@@ -1,29 +1,25 @@
 require("dotenv").config();
 let express = require("express");
-let app = express();
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
 const port = 3000;
-const { getAllData, getFilteredData } = require("./mongo/operations");
 
-// localhost:3000/api/names
-// localhost:3000/api/names?firstName=Jim
-app.get("/api/names", async (req, res, next) => {
-  const { firstName } = req.query;
-  console.log("first name: ", firstName);
-  let data;
+const { urlLogger, postBodyLogger } = require("./middleware/logger");
 
-  try {
-    if (firstName) {
-      data = await getFilteredData(firstName);
-    } else {
-      data = await getAllData();
-    }
-    res.json(data);
-  } catch (err) {
-    next(err);
-  }
-});
+let app = express();
 
-// error handling
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use(urlLogger);
+app.post("*", postBodyLogger);
+
+app.use("/", indexRouter);
+
+/* localhost:3000/users*/
+app.use("/users", usersRouter);
+
+/* error handling */
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.status(500).send("Something broke!");
