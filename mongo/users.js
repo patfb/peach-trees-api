@@ -1,34 +1,23 @@
-const { createClient } = require("./client");
-const DB_NAME = "peach_trees";
-
-let connectToPeachTrees = async client => {
-  await client.connect();
-  console.log("Connected to the server");
-  return client.db(DB_NAME).collection("names");
-};
+const { peachConnect } = require("./client");
 
 let deleteUser = async user => {
-  const client = createClient();
+  let { client, col } = peachConnect();
+
   try {
-    await client.connect();
-    console.log("connected");
-    const col = client.db(DB_NAME).collection("names");
     await col.deleteOne({
       first: user.first,
       last: user.last
     });
   } catch (err) {
+    throw err;
   } finally {
     client.close();
   }
 };
 
 let updateUser = async user => {
-  const client = createClient();
+  let { client, col } = await peachConnect();
   try {
-    await client.connect();
-    console.log("connected");
-    const col = client.db(DB_NAME).collection("names");
     await col.updateOne(
       {
         first: user.first,
@@ -44,48 +33,39 @@ let updateUser = async user => {
 };
 
 let createUser = async user => {
-  const client = createClient();
+  let { client, col } = await peachConnect();
   try {
-    await client.connect();
-    console.log("connected");
-    const db = client.db(DB_NAME);
-    await db.collection("names").insertOne({
+    await col.insertOne({
       first: user.first,
       last: user.last
     });
   } catch (err) {
+    throw err;
   } finally {
     client.close();
-    console.log("client closed");
   }
 };
 
 let readAllData = async () => {
-  const client = createClient();
+  let { client, col } = await peachConnect();
   try {
-    let collection = await connectToPeachTrees(client);
-    const names = await collection.find().toArray();
-    console.log("names are", names);
+    const names = await col.find().toArray();
     return names;
   } catch (err) {
     throw err;
   } finally {
     client.close();
-    console.log("client closed");
   }
 };
 let readFilteredData = async firstName => {
-  const client = createClient();
+  let { client, col } = await peachConnect();
   try {
-    let collection = await connectToPeachTrees(client);
-    const matchingNames = await collection.find({ first: firstName }).toArray();
-    console.log("matchingNames are", matchingNames);
+    const matchingNames = await col.find({ first: firstName }).toArray();
     return matchingNames;
   } catch (err) {
     throw err;
   } finally {
     client.close();
-    console.log("client closed");
   }
 };
 

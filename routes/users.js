@@ -4,7 +4,8 @@ const {
   readAllData,
   readFilteredData,
   updateUser,
-  deleteUser
+  deleteUser,
+  createUser
 } = require("../mongo/users");
 const { check, validationResult } = require("express-validator");
 
