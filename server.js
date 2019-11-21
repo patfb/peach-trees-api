@@ -1,7 +1,7 @@
 require("dotenv").config();
 let express = require("express");
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+var indexRouter = require("./controllers/index");
+var usersRouter = require("./controllers/users");
 const port = 3000;
 
 const { urlLogger, postBodyLogger } = require("./middleware/logger");

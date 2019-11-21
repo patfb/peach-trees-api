@@ -2,7 +2,6 @@ const { peachConnect } = require("./client");
 
 let deleteUser = async user => {
   let { client, col } = peachConnect();
-
   try {
     await col.deleteOne({
       first: user.first,
