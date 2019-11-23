@@ -8,7 +8,7 @@ const {
   createUser
 } = require("../mongo/users");
 const { validationResult } = require("express-validator");
-const validation = require("../models/user.validation");
+const validation = require("../validators/user.validation");
 
 router.get("/", async (req, res, next) => {
   const { firstName } = req.query;
