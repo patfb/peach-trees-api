@@ -1,7 +1,7 @@
 require("dotenv").config();
 let express = require("express");
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+let indexRouter = require("./routes/index");
+let usersRouter = require("./routes/users");
 
 const { urlLogger, postBodyLogger } = require("./middleware/logger");
 

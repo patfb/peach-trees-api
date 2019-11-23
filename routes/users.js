@@ -7,8 +7,8 @@ const {
   deleteUser,
   createUser
 } = require("../mongo/users");
-const { validationResult } = require("express-validator");
-const validation = require("../validators/user.validation");
+// const { validationResult } = require("express-validator");
+const { validateRequest, user } = require("../middleware/requestValidation");
 
 router.get("/", async (req, res, next) => {
   const { firstName } = req.query;
@@ -27,11 +27,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/dev", validation.user, async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
+router.post("/dev", user, validateRequest, async (req, res, next) => {
   console.log("hit dev");
   res.send("hit dev");
 });
