@@ -6,21 +6,13 @@ const {
   updateUser,
   deleteUser,
   createUser
-} = require("../mongo/users");
-// const { validationResult } = require("express-validator");
+} = require("../mongo/users.mongo");
 const { validateRequest, user } = require("../middleware/requestValidation");
+const usersController = require("../controllers/users.controller");
 
 router.get("/", async (req, res, next) => {
-  const { firstName } = req.query;
-  console.log("first name: ", firstName);
-  let data;
-
   try {
-    if (firstName) {
-      data = await readFilteredData(firstName);
-    } else {
-      data = await readAllData();
-    }
+    let data = await usersController.getUsers(req.query);
     res.json(data);
   } catch (err) {
     next(err);
