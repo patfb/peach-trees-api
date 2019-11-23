@@ -1,8 +1,7 @@
 require("dotenv").config();
 let express = require("express");
-var indexRouter = require("./controllers/index");
-var usersRouter = require("./controllers/users");
-const port = 3000;
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
 
 const { urlLogger, postBodyLogger } = require("./middleware/logger");
 
@@ -23,10 +22,6 @@ app.use("/users", usersRouter);
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.status(500).send("Something broke!");
-});
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
 });
 
 module.exports = { app };

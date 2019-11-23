@@ -4,8 +4,8 @@
   "description": "node server with a mongodb backend",
   "main": "server.js",
   "scripts": {
-    "start:ci": "node server.js",
-    "start": "nodemon server.js",
+    "start:ci": "node start.js",
+    "start": "nodemon start.js",
     "test": "jest"
   },
   "author": "",
