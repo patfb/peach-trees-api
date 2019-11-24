@@ -1,14 +1,14 @@
-const {
-  readAllData,
-  readFilteredData,
-  updateUser,
-  deleteUser,
-  createUser
-} = require("../mongo/users.mongo");
+const mongo = require("../mongo/users.mongo");
 
 let getUsers = async ({ first, last }) => {
   console.log(`firstName: ${first}`);
-  return first ? await readFilteredData(first) : await readAllData();
+  return first
+    ? await mongo.readFilteredData(first)
+    : await mongo.readAllData();
 };
 
-module.exports = { getUsers };
+let updateUser = async ({ first, last }) => {
+  return await mongo.updateUser({ first, last });
+};
+
+module.exports = { getUsers, updateUser };

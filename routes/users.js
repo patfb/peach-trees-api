@@ -42,7 +42,7 @@ router.post("/", async (req, res, next) => {
 
 router.put("/", async (req, res, next) => {
   try {
-    await updateUser(req.body);
+    usersController.updateUser(req.body);
     res.send(`updated ${JSON.stringify(req.body)}`);
   } catch (err) {
     next(err);
